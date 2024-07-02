@@ -9,8 +9,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get_it/get_it.dart';
+import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shimmer/shimmer.dart';
+
+import '../memorily/models/memoriality_model.dart';
 
 class CustomScreen extends StatefulWidget {
   const CustomScreen({
@@ -495,6 +499,8 @@ class _CustomScreenState extends State<CustomScreen> {
                                   GestureDetector(
                                     onTap: () {
                                       addListData(item);
+                                      var data = GetIt.I.get<Box<FitnosExModel>>();
+                                      // data.put(listFitnoss.first.fitnosKey, item);
                                       setState(() {});
                                     },
                                     child: Image.asset(

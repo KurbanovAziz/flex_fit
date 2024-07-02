@@ -6,6 +6,7 @@ import 'package:flex_fit_223_b/fit/fit_docs.dart';
 import 'package:flex_fit_223_b/memorily/models/memoriality_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
@@ -16,7 +17,10 @@ void main() async {
   Hive.registerAdapter(FitnosExModelAdapter());
   Hive.registerAdapter(MemorialityModelAdapter());
 
-  await Hive.openBox<MemorialityModel>('memorialityModel');
+  var data = await Hive.openBox<MemorialityModel>('memorialityModel');
+
+  GetIt.I.registerSingleton(data);
+
   runApp(const MyApp());
   await Apphud.start(apiKey: FitDoK.aPPpDHaaddK);
 }
