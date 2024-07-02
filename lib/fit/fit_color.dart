@@ -9,4 +9,5 @@ abstract class FitColor {
   static const Color grey = Color(0xFFA3A5AE);
   static const Color grey383B45 = Color(0xFF383B45);
   static const Color greyTex = Color(0xFF868686);
+  static const Color blue = Color(0xFF007AFF);
 }
