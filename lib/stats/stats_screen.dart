@@ -174,8 +174,7 @@ class StatsScreen extends StatelessWidget {
                         Text('04:20', style: TextStyle(color: FitColor.grey, fontSize: 18.sp),
                         )
                       ],
-                    ),
-                  ),
+                    ),),
                 ),
                 SizedBox(width: 16.w),
               ],
