@@ -23,6 +23,8 @@ class CustomScreen extends StatefulWidget {
 
 class _CustomScreenState extends State<CustomScreen> {
   File? _image;
+  final listFitnoss = dayPlan;
+  final List<FitnosExModel> listTik = [];
 
   Future<void> _pickImage(ImageSource source) async {
     final picker = ImagePicker();
@@ -46,14 +48,18 @@ class _CustomScreenState extends State<CustomScreen> {
                 Navigator.of(context).pop();
                 _pickImage(ImageSource.camera);
               },
-              child: const Text('Take a photo', style: TextStyle(color: FitColor.blue),),
+              child: const Text(
+                'Take a photo',
+                style: TextStyle(color: FitColor.blue),
+              ),
             ),
             CupertinoActionSheetAction(
               onPressed: () {
                 Navigator.of(context).pop();
                 _pickImage(ImageSource.gallery);
               },
-              child: const Text('Select from gallery', style: TextStyle(color: FitColor.blue)),
+              child: const Text('Select from gallery',
+                  style: TextStyle(color: FitColor.blue)),
             ),
           ],
           cancelButton: CupertinoActionSheetAction(
@@ -88,18 +94,18 @@ class _CustomScreenState extends State<CustomScreen> {
                 GestureDetector(
                   onTap: () => _showPickerDialog(context),
                   child: _image == null
-                      ?  Center(
+                      ? Center(
                           child: ClipRRect(
-                            borderRadius: BorderRadius.vertical(
-                              bottom: Radius.circular(32.r),
-                            ),
-                            child: Container(
-                              color: FitColor.grey383B45,
-                              width: double.infinity,
-                              child: Column(
+                          borderRadius: BorderRadius.vertical(
+                            bottom: Radius.circular(32.r),
+                          ),
+                          child: Container(
+                            color: FitColor.grey383B45,
+                            width: double.infinity,
+                            child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                SizedBox(height: 100.h,),
+                                SizedBox(height: 100.h),
                                 const Icon(
                                   Icons.add,
                                   color: FitColor.purple,
@@ -115,13 +121,14 @@ class _CustomScreenState extends State<CustomScreen> {
                                   "It is recommended to use horizontal or\npanoramic images",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      color: FitColor.grey,
-                                      fontSize: 12.sp,),
+                                    color: FitColor.grey,
+                                    fontSize: 12.sp,
+                                  ),
                                 )
                               ],
-                                                      ),
                             ),
-                          ))
+                          ),
+                        ))
                       : ClipRRect(
                           borderRadius: BorderRadius.vertical(
                             bottom: Radius.circular(32.r),
@@ -149,9 +156,7 @@ class _CustomScreenState extends State<CustomScreen> {
                               Icons.arrow_back_ios_new,
                               color: Colors.white,
                             ),
-                            SizedBox(
-                              width: 12.w,
-                            ),
+                            SizedBox(width: 12.w),
                             Text(
                               "Exemple name",
                               style: TextStyle(
@@ -163,9 +168,7 @@ class _CustomScreenState extends State<CustomScreen> {
                           ],
                         ),
                       ),
-                      SizedBox(
-                        height: 24.h,
-                      ),
+                      SizedBox(height: 24.h),
                       Row(
                         children: [
                           Container(
@@ -286,11 +289,12 @@ class _CustomScreenState extends State<CustomScreen> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                SizedBox(height: 16.h,),
+                SizedBox(height: 16.h),
                 ListView.separated(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
+                      final list = listTik[index];
                       return FitMot(
                         onPressed: () {},
                         child: Container(
@@ -300,71 +304,86 @@ class _CustomScreenState extends State<CustomScreen> {
                             borderRadius: BorderRadius.circular(24.r),
                           ),
                           child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(16.r),
-                                child: CachedNetworkImage(
-                                  imageUrl:
-                                      "https://i.ibb.co/jDWB6Pq/782b4c5c4fa4eb0c8595d0e85bee22a7.jpg",
-                                  height: 100.h,
-                                  width: 100.w,
-                                  fit: BoxFit.cover,
-                                  placeholder: (context, url) => Shimmer.fromColors(
-                                    baseColor: Colors.grey.shade500,
-                                    highlightColor: Colors.grey.shade200,
-                                    child: Container(
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  errorWidget: (context, url, error) =>
-                                      const Icon(Icons.error),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 12.w,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
+                              Row(
                                 children: [
-                                  Text(
-                                    "Example name",
-                                    style: TextStyle(
-                                      fontSize: 18.sp,
-                                      color: FitColor.white,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        "",
-                                        style: TextStyle(
-                                          fontSize: 12.sp,
-                                          color: FitColor.purple,
-                                          fontWeight: FontWeight.w600,
+                                  const Icon(Icons.menu,
+                                      color: FitColor.greyTex),
+                                  SizedBox(width: 12.w),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(16.r),
+                                    child: CachedNetworkImage(
+                                      imageUrl: list.fitnoExsImage,
+                                      height: 100.h,
+                                      width: 100.w,
+                                      fit: BoxFit.cover,
+                                      placeholder: (context, url) =>
+                                          Shimmer.fromColors(
+                                        baseColor: Colors.grey.shade500,
+                                        highlightColor: Colors.grey.shade200,
+                                        child: Container(
+                                          color: Colors.white,
                                         ),
                                       ),
+                                      errorWidget: (context, url, error) =>
+                                          const Icon(Icons.error),
+                                    ),
+                                  ),
+                                  SizedBox(width: 12.w),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
                                       Text(
-                                        '• ',
+                                        list.fitnosExName,
                                         style: TextStyle(
-                                          fontSize: 12.sp,
+                                          fontSize: 18.sp,
                                           color: FitColor.white,
                                           fontWeight: FontWeight.w600,
                                         ),
                                       ),
-                                      Text(
-                                        formatTime(100),
-                                        style: TextStyle(
-                                          fontSize: 12.sp,
-                                          color: FitColor.grey,
-                                          fontWeight: FontWeight.w600,
-                                        ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "",
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              color: FitColor.purple,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                          Text(
+                                            '• ',
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              color: FitColor.white,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                          Text(
+                                            formatTime(100),
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              color: FitColor.grey,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
                                 ],
                               ),
+                              GestureDetector(
+                                  onTap: () {
+                                    listTik.remove(list);
+                                    setState(() {});
+                                  },
+                                  child: const Icon(Icons.close,
+                                      color: FitColor.greyTex)),
                             ],
                           ),
                         ),
@@ -373,7 +392,7 @@ class _CustomScreenState extends State<CustomScreen> {
                     separatorBuilder: (context, index) => SizedBox(
                           height: 8.h,
                         ),
-                    itemCount: 4),
+                    itemCount: listTik.length),
                 Text(
                   "All exercises",
                   style: TextStyle(
@@ -386,102 +405,144 @@ class _CustomScreenState extends State<CustomScreen> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
+                      var item = listFitnoss.first.fitnosExList[index];
                       return FitMot(
                         onPressed: () {},
-                        child: Container(
-                          padding: EdgeInsets.all(8.r),
-                          decoration: BoxDecoration(
-                            color: FitColor.white.withOpacity(0.03),
-                            borderRadius: BorderRadius.circular(24.r),
-                          ),
-                          child: Row(
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(16.r),
-                                child: CachedNetworkImage(
-                                  imageUrl:
-                                  "https://i.ibb.co/jDWB6Pq/782b4c5c4fa4eb0c8595d0e85bee22a7.jpg",
-                                  height: 100.h,
-                                  width: 100.w,
-                                  fit: BoxFit.cover,
-                                  placeholder: (context, url) => Shimmer.fromColors(
-                                    baseColor: Colors.grey.shade500,
-                                    highlightColor: Colors.grey.shade200,
-                                    child: Container(
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  errorWidget: (context, url, error) =>
-                                  const Icon(Icons.error),
-                                ),
+                        child: Stack(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(8.r),
+                              decoration: BoxDecoration(
+                                color: FitColor.white.withOpacity(0.03),
+                                borderRadius: BorderRadius.circular(24.r),
                               ),
-                              SizedBox(
-                                width: 12.w,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    "Example name",
-                                    style: TextStyle(
-                                      fontSize: 18.sp,
-                                      color: FitColor.white,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
                                   Row(
                                     children: [
-                                      Text(
-                                        "",
-                                        style: TextStyle(
-                                          fontSize: 12.sp,
-                                          color: FitColor.purple,
-                                          fontWeight: FontWeight.w600,
+                                      ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(16.r),
+                                        child: CachedNetworkImage(
+                                          imageUrl: item.fitnoExsImage,
+                                          height: 100.h,
+                                          width: 100.w,
+                                          fit: BoxFit.cover,
+                                          placeholder: (context, url) =>
+                                              Shimmer.fromColors(
+                                            baseColor: Colors.grey.shade500,
+                                            highlightColor:
+                                                Colors.grey.shade200,
+                                            child: Container(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          errorWidget: (context, url, error) =>
+                                              const Icon(Icons.error),
                                         ),
                                       ),
-                                      Text(
-                                        '• ',
-                                        style: TextStyle(
-                                          fontSize: 12.sp,
-                                          color: FitColor.white,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                      Text(
-                                        formatTime(100),
-                                        style: TextStyle(
-                                          fontSize: 12.sp,
-                                          color: FitColor.grey,
-                                          fontWeight: FontWeight.w600,
-                                        ),
+                                      SizedBox(width: 12.w),
+                                      Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            item.fitnosExName,
+                                            style: TextStyle(
+                                              fontSize: 18.sp,
+                                              color: FitColor.white,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                "",
+                                                style: TextStyle(
+                                                  fontSize: 12.sp,
+                                                  color: FitColor.purple,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+                                              Text(
+                                                '• ',
+                                                style: TextStyle(
+                                                  fontSize: 12.sp,
+                                                  color: FitColor.white,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+                                              Text(
+                                                formatTime(100),
+                                                style: TextStyle(
+                                                  fontSize: 12.sp,
+                                                  color: FitColor.grey,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      addListData(item);
+                                      setState(() {});
+                                    },
+                                    child: Image.asset(
+                                      "assets/icons/custom.png",
+                                      width: 40.w,
+                                    ),
+                                  )
                                 ],
                               ),
-                              Align(
-                                alignment: Alignment.bottomRight,
-                                child: Image.asset(
-                                  "assets/icons/custom.png",
-                                  width: 40.w,
-                                ),
-                              )
-                            ],
-                          ),
+                            ),
+                            Positioned(
+                                left: 0,
+                                right: 0,
+                                bottom: 0,
+                                top: 0,
+                                child: Visibility(
+                                  visible: checkAddList(item),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color:Colors.black54,
+                                      borderRadius: BorderRadius.circular(24.r),
+                                    ),
+                                  ),
+                                ))
+                          ],
                         ),
                       );
                     },
                     separatorBuilder: (context, index) => SizedBox(
-                      height: 8.h,
-                    ),
-                    itemCount: 4),
+                          height: 8.h,
+                        ),
+                    itemCount: listFitnoss.first.fitnosExList.length),
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  void addListData(FitnosExModel item) {
+    if (!listTik.contains(item)) {
+      listTik.add(item);
+    }
+  }
+
+  bool checkAddList(FitnosExModel item) {
+    return listTik.contains(item);
   }
 }
 
