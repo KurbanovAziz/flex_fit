@@ -15,8 +15,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CustomScreen extends StatefulWidget {
+  final String title;
   const CustomScreen({
-    super.key,
+    super.key, required this.title,
   });
 
   @override
@@ -27,7 +28,7 @@ class _CustomScreenState extends State<CustomScreen> {
   File? _image;
   final listFitnoss = dayPlan;
   final List<FitnosExModel> listTik = [];
-  String title = '';
+
   String stringImageForSaveAndroid ='';
   late int id;
 
@@ -36,7 +37,6 @@ class _CustomScreenState extends State<CustomScreen> {
     super.initState();
     saveIdAlert(getIdAlert()+1);
     id = getIdAlert();
-    title = 'Exemple name';
   }
   final picker = ImagePicker();
 
@@ -108,6 +108,9 @@ class _CustomScreenState extends State<CustomScreen> {
   @override
   Widget build(BuildContext context) {
     int min = 0;
+    for (var i in listTik) {
+      min += i.fitnosExSec;
+    }
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(200.h),
@@ -192,7 +195,7 @@ class _CustomScreenState extends State<CustomScreen> {
                             ),
                             SizedBox(width: 12.w),
                             Text(
-                              "Exemple name",
+                              widget.title,
                               style: TextStyle(
                                 fontSize: 24.sp,
                                 color: FitColor.white,
@@ -223,7 +226,7 @@ class _CustomScreenState extends State<CustomScreen> {
                                     children: [
                                       SvgPicture.asset('assets/icons/exer.svg'),
                                       Text(
-                                        '0 exercises',
+                                        '${listTik.length} exercises',
                                         style: TextStyle(
                                           fontSize: 12.sp,
                                           color: FitColor.white,
@@ -285,7 +288,7 @@ class _CustomScreenState extends State<CustomScreen> {
                                     children: [
                                       SvgPicture.asset('assets/icons/fire.svg'),
                                       Text(
-                                        '0 ccal',
+                                        '${0} ccal',
                                         style: TextStyle(
                                           fontSize: 12.sp,
                                           color: FitColor.white,
@@ -383,7 +386,7 @@ class _CustomScreenState extends State<CustomScreen> {
                                       Row(
                                         children: [
                                           Text(
-                                            "",
+                                            list.fitnosExTag,
                                             style: TextStyle(
                                               fontSize: 12.sp,
                                               color: FitColor.purple,
@@ -399,7 +402,7 @@ class _CustomScreenState extends State<CustomScreen> {
                                             ),
                                           ),
                                           Text(
-                                            formatTime(100),
+                                            formatTime(list.fitnosExSec),
                                             style: TextStyle(
                                               fontSize: 12.sp,
                                               color: FitColor.grey,
@@ -499,7 +502,7 @@ class _CustomScreenState extends State<CustomScreen> {
                                           Row(
                                             children: [
                                               Text(
-                                                "",
+                                                item.fitnosExTag,
                                                 style: TextStyle(
                                                   fontSize: 12.sp,
                                                   color: FitColor.purple,
@@ -515,7 +518,7 @@ class _CustomScreenState extends State<CustomScreen> {
                                                 ),
                                               ),
                                               Text(
-                                                formatTime(100),
+                                                formatTime(item.fitnosExSec),
                                                 style: TextStyle(
                                                   fontSize: 12.sp,
                                                   color: FitColor.grey,

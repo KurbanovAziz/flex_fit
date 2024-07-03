@@ -15,10 +15,10 @@ class FitBotmFtState extends State<FitBotmFt> {
   late int _currentIndex;
   TextEditingController _imyaController = TextEditingController();
 
-  final List<Widget> _pages =  <Widget>[
+  final List<Widget> _pages = <Widget>[
     DomScreen(),
     MemorilyScreen(),
-    CustomScreen(),
+    SizedBox(),
     StatsScreen(),
     NastroScreen(),
   ];
@@ -66,14 +66,14 @@ class FitBotmFtState extends State<FitBotmFt> {
       },
       child: index == 2
           ? Image.asset(
-        iconPath,
-        width: 40.w,
-      )
+              iconPath,
+              width: 40.w,
+            )
           : SvgPicture.asset(
-        iconPath,
-        color: _currentIndex == index ? FitColor.purple : FitColor.grey,
-        width: 70.w,
-      ),
+              iconPath,
+              color: _currentIndex == index ? FitColor.purple : FitColor.grey,
+              width: 70.w,
+            ),
     );
   }
 
@@ -94,7 +94,7 @@ class FitBotmFtState extends State<FitBotmFt> {
                     Align(
                         alignment: Alignment.center,
                         child:
-                        SvgPicture.asset('assets/icons/bottom_sheet.svg')),
+                            SvgPicture.asset('assets/icons/bottom_sheet.svg')),
                     SizedBox(
                       height: 15.h,
                     ),
@@ -146,10 +146,12 @@ class FitBotmFtState extends State<FitBotmFt> {
                     FitMot(
                       onPressed: () {
                         Navigator.of(context).pop();
-                        _currentIndex = 2;
-                        setState(() {
-
-                        });
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CustomScreen(
+                                      title: _imyaController.text,
+                                    )));
                       },
                       child: Container(
                         padding: EdgeInsets.symmetric(vertical: 16.h),
