@@ -2,11 +2,16 @@
 class Assets {
   Assets._();
 
+  static const String iconsBottomSheet = 'assets/icons/bottom_sheet.svg';
   static const String iconsCustom = 'assets/icons/custom.png';
+  static const String iconsExer = 'assets/icons/exer.svg';
+  static const String iconsFire = 'assets/icons/fire.svg';
   static const String iconsHistory = 'assets/icons/history.svg';
   static const String iconsHome = 'assets/icons/home.svg';
   static const String iconsLogo = 'assets/icons/logo.png';
+  static const String iconsPlay = 'assets/icons/play.svg';
   static const String iconsProgress = 'assets/icons/progress.svg';
   static const String iconsSettings = 'assets/icons/settings.svg';
+  static const String imagesHero = 'assets/images/hero.jpeg';
 
 }

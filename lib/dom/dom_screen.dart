@@ -5,10 +5,28 @@ import 'package:flex_fit_223_b/dom/widgets/weak_data.dart';
 import 'package:flex_fit_223_b/fit/fit_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get_it/get_it.dart';
+import 'package:hive/hive.dart';
 
-class DomScreen extends StatelessWidget {
+class DomScreen extends StatefulWidget {
   const DomScreen({super.key});
 
+  @override
+  State<DomScreen> createState() => _DomScreenState();
+}
+
+class _DomScreenState extends State<DomScreen> {
+
+  @override
+  void initState() {
+    ///Здесь можно получать данные
+    var data = GetIt.I.get<
+        Box<FitnosModel>>();
+    data.values.toList().forEach((e){
+      print(e.fitnosName);
+    });
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

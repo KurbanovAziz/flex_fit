@@ -96,7 +96,7 @@ class FitBotmFtState extends State<FitBotmFt> {
                         child:
                             SvgPicture.asset('assets/icons/bottom_sheet.svg')),
                     SizedBox(
-                      height: 15.h,
+                      height: 15.h
                     ),
                     Text(
                       'Name of the training program',
@@ -145,13 +145,18 @@ class FitBotmFtState extends State<FitBotmFt> {
                     SizedBox(height: 20.h),
                     FitMot(
                       onPressed: () {
-                        Navigator.of(context).pop();
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => CustomScreen(
-                                      title: _imyaController.text,
-                                    )));
+                        if (_imyaController.text.isNotEmpty) {
+                          var  name = _imyaController.text;
+                          Navigator.of(context).pop();
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CustomScreen(
+                                    title: name,
+                                  )));
+                          _imyaController.clear();
+                        }
+
                       },
                       child: Container(
                         padding: EdgeInsets.symmetric(vertical: 16.h),

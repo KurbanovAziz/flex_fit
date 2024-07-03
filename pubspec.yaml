@@ -53,6 +53,7 @@ dependencies:
   file: ^6.1.2
   get_it: ^7.7.0
   talker_flutter: ^4.3.2
+  google_fonts: ^6.2.1
 
 dev_dependencies:
   flutter_test:

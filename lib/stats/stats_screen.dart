@@ -1,11 +1,27 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import '../fit/fit_color.dart';
 
-class StatsScreen extends StatelessWidget {
+class StatsScreen extends StatefulWidget {
   const StatsScreen({super.key});
+
+  @override
+  State<StatsScreen> createState() => _StatsScreenState();
+}
+
+class _StatsScreenState extends State<StatsScreen> {
+  double progress = 0.0;
+
+  @override
+  void initState() {
+    progress = Random().nextDouble() * 1;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +43,7 @@ class StatsScreen extends StatelessWidget {
                 radius: 120.0,
                 lineWidth: 13.0,
                 animation: true,
-                percent: 0.7,
+                percent: progress,
                 center: Column(
                   children: [
                     SizedBox(height: 50.h),
@@ -37,7 +53,7 @@ class StatsScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 4.h),
                     Text(
-                      '9.3',
+                      (progress * 10).toString().substring(0, 3),
                       style: TextStyle(fontSize: 50.sp, color: Colors.white),
                     ),
                     SizedBox(height: 4.h),
@@ -67,7 +83,8 @@ class StatsScreen extends StatelessWidget {
                   child: Container(
                     alignment: Alignment.topLeft,
                     margin: EdgeInsets.only(left: 16.w),
-                    padding: EdgeInsets.only(left: 16.w, top: 16.h, bottom: 40.h),
+                    padding:
+                        EdgeInsets.only(left: 16.w, top: 16.h, bottom: 40.h),
                     decoration: BoxDecoration(
                         color: FitColor.dark,
                         borderRadius: BorderRadius.circular(16.r)),
@@ -77,15 +94,19 @@ class StatsScreen extends StatelessWidget {
                         Text(
                           'Active ',
                           textAlign: TextAlign.start,
-                          style: TextStyle(color: FitColor.grey, fontSize: 18.sp),
+                          style:
+                              TextStyle(color: FitColor.grey, fontSize: 18.sp),
                         ),
                         Text(
                           'Streak ',
-                          style: TextStyle(color: FitColor.grey, fontSize: 18.sp),
+                          style:
+                              TextStyle(color: FitColor.grey, fontSize: 18.sp),
                         ),
                         SizedBox(height: 24.h),
-                        Text('2 days', style: TextStyle(color: FitColor.grey, fontSize: 18.sp),
-                        )
+                        Text('2 days',
+                            style: GoogleFonts.roboto(
+                                textStyle: TextStyle(
+                                    color: Colors.white, fontSize: 18.sp)))
                       ],
                     ),
                   ),
@@ -94,7 +115,8 @@ class StatsScreen extends StatelessWidget {
                 Expanded(
                   child: Container(
                     alignment: Alignment.topLeft,
-                    padding: EdgeInsets.only(left: 16.w, top: 16.h, bottom: 40.h),
+                    padding:
+                        EdgeInsets.only(left: 16.w, top: 16.h, bottom: 40.h),
                     decoration: BoxDecoration(
                         color: FitColor.dark,
                         borderRadius: BorderRadius.circular(16.r)),
@@ -104,15 +126,19 @@ class StatsScreen extends StatelessWidget {
                         Text(
                           'Longest ',
                           textAlign: TextAlign.start,
-                          style: TextStyle(color: FitColor.grey, fontSize: 18.sp),
+                          style:
+                              TextStyle(color: FitColor.grey, fontSize: 18.sp),
                         ),
                         Text(
                           'Streak ',
-                          style: TextStyle(color: FitColor.grey, fontSize: 18.sp),
+                          style:
+                              TextStyle(color: FitColor.grey, fontSize: 18.sp),
                         ),
                         SizedBox(height: 24.h),
-                        Text('2 days', style: TextStyle(color: FitColor.grey, fontSize: 18.sp),
-                        )
+                        Text('2 days',
+                            style: GoogleFonts.roboto(
+                                textStyle: TextStyle(
+                                    color: Colors.white, fontSize: 18.sp)))
                       ],
                     ),
                   ),
@@ -127,7 +153,8 @@ class StatsScreen extends StatelessWidget {
                   child: Container(
                     alignment: Alignment.topLeft,
                     margin: EdgeInsets.only(left: 16.w),
-                    padding: EdgeInsets.only(left: 16.w, top: 16.h, bottom: 40.h),
+                    padding:
+                        EdgeInsets.only(left: 16.w, top: 16.h, bottom: 40.h),
                     decoration: BoxDecoration(
                         color: FitColor.dark,
                         borderRadius: BorderRadius.circular(16.r)),
@@ -137,15 +164,19 @@ class StatsScreen extends StatelessWidget {
                         Text(
                           'Days ',
                           textAlign: TextAlign.start,
-                          style: TextStyle(color: FitColor.grey, fontSize: 18.sp),
+                          style:
+                              TextStyle(color: FitColor.grey, fontSize: 18.sp),
                         ),
                         Text(
                           'Completed ',
-                          style: TextStyle(color: FitColor.grey, fontSize: 18.sp),
+                          style:
+                              TextStyle(color: FitColor.grey, fontSize: 18.sp),
                         ),
                         SizedBox(height: 24.h),
-                        Text('2 days', style: TextStyle(color: FitColor.grey, fontSize: 18.sp),
-                        )
+                        Text('2 days',
+                            style: GoogleFonts.roboto(
+                                textStyle: TextStyle(
+                                    color: Colors.white, fontSize: 18.sp)))
                       ],
                     ),
                   ),
@@ -154,7 +185,8 @@ class StatsScreen extends StatelessWidget {
                 Expanded(
                   child: Container(
                     alignment: Alignment.topLeft,
-                    padding: EdgeInsets.only(left: 16.w, top: 16.h, bottom: 40.h),
+                    padding:
+                        EdgeInsets.only(left: 16.w, top: 16.h, bottom: 40.h),
                     decoration: BoxDecoration(
                         color: FitColor.dark,
                         borderRadius: BorderRadius.circular(16.r)),
@@ -164,17 +196,22 @@ class StatsScreen extends StatelessWidget {
                         Text(
                           'Last ',
                           textAlign: TextAlign.start,
-                          style: TextStyle(color: FitColor.grey, fontSize: 18.sp),
+                          style:
+                              TextStyle(color: FitColor.grey, fontSize: 18.sp),
                         ),
                         Text(
                           'Stretch ',
-                          style: TextStyle(color: FitColor.grey, fontSize: 18.sp),
+                          style:
+                              TextStyle(color: FitColor.grey, fontSize: 18.sp),
                         ),
                         SizedBox(height: 24.h),
-                        Text('04:20', style: TextStyle(color: FitColor.grey, fontSize: 18.sp),
-                        )
+                        Text(formatTime(DateTime.now()),
+                            style: GoogleFonts.roboto(
+                                textStyle: TextStyle(
+                                    color: Colors.white, fontSize: 18.sp)))
                       ],
-                    ),),
+                    ),
+                  ),
                 ),
                 SizedBox(width: 16.w),
               ],
@@ -183,5 +220,10 @@ class StatsScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+  String formatTime(DateTime dateTime) {
+    String hours = dateTime.hour.toString().padLeft(2, '0');
+    String minutes = dateTime.minute.toString().padLeft(2, '0');
+    return '$hours:$minutes';
   }
 }
