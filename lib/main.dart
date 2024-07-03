@@ -8,18 +8,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
+  ///Talker
+  final talker = TalkerFlutter.init(
+      settings: TalkerSettings(
+          maxHistoryItems: 30, titles: {TalkerLogType.exception: 'Error: '}));
+  GetIt.I.registerSingleton(talker);
+  GetIt.I<Talker>();
+
+  ///Shared Preferences
+  GetIt.I.registerSingleton(await SharedPreferences.getInstance());
+
+  // GetIt.I.registerFactory<Pref>(() => Pref());
 
   Hive.registerAdapter(FitnosModelAdapter());
   Hive.registerAdapter(FitnosExModelAdapter());
   Hive.registerAdapter(MemorialityModelAdapter());
 
+    var fitnos = await Hive.openBox<FitnosModel>('fitnosKeyyl');
   var data = await Hive.openBox<MemorialityModel>('memorialityModel');
 
   GetIt.I.registerSingleton(data);
+  GetIt.I.registerSingleton(fitnos);
 
   runApp(const MyApp());
   await Apphud.start(apiKey: FitDoK.aPPpDHaaddK);
@@ -50,3 +65,17 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+SharedPreferences prefs = GetIt.I<SharedPreferences>();
+
+
+///Создание id для alerts
+void saveIdAlert(int id) async{
+  await prefs.setInt('ALERT_ID_PERCENT', id);
+}
+
+int getIdAlert() {
+  final i = prefs.getInt('ALERT_ID_PERCENT');
+  return i ?? 0;
+}
+
+final talker = GetIt.I<Talker>();
